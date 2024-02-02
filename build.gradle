@@ -1,19 +1,37 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.11.2'
 }
 
 group = 'ru.newsmain'
 version = '1.0-SNAPSHOT'
 
+def allureVersion = "2.24.0"
+def aspectJVersion = "1.9.20.1"
+
 repositories {
     mavenCentral()
 }
 
+configurations {
+    agent {
+        canBeResolved = true
+        canBeConsumed = true
+    }
+}
+
 dependencies {
+    agent "org.aspectj:aspectjweaver:$aspectJVersion"
+
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
     testImplementation 'com.codeborne:selenide:7.0.6'
+    testImplementation platform("io.qameta.allure:allure-bom:$allureVersion")
+    testImplementation 'io.qameta.allure:allure-junit5'
+    testImplementation 'io.qameta.allure:allure-selenide:2.25.0'
 }
 
 test {
     useJUnitPlatform()
+    jvmArgs = [ "-javaagent:${configurations.agent.singleFile}" ]
 }
+

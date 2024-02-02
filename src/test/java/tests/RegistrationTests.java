@@ -1,11 +1,13 @@
 package tests;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.HomePage;
 
 public class RegistrationTests extends BaseTest {
     HomePage homePage = new HomePage();
 
+    @DisplayName("Проверка успешной регистрации")
     @Test
     void successfulRegistration() {
         homePage.openPage()
@@ -24,6 +26,7 @@ public class RegistrationTests extends BaseTest {
                 .checkSuccessfulRegistration();
     }
 
+    @DisplayName("Проверка ввода некорректного номера при регистрации")
     @Test
     void InputIncorrectNumberPhoneRegistration() {
         homePage.openPage()
@@ -35,6 +38,7 @@ public class RegistrationTests extends BaseTest {
                 .pressEnterAndCheckNumberPhone();
     }
 
+    @DisplayName("Различные варианты неуспешной регистрации")
     @Test
     void unsuccessfulRegistration() {
         homePage.openPage()
